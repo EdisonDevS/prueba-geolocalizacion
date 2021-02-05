@@ -9,12 +9,15 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 })
 export class HomePage {
 
+  lat
+  long
+
   constructor(private geolocation: Geolocation) {}
 
   enviarAlarma() {
     this.geolocation.getCurrentPosition().then((resp) => {
-      // resp.coords.latitude
-      // resp.coords.longitude
+      this.lat = resp.coords.latitude
+      this.long = resp.coords.longitude
      }).catch((error) => {
        console.log('Error getting location', error);
      });

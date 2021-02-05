@@ -1,0 +1,7 @@
+{
+  "name": "prueba-ubicacion",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

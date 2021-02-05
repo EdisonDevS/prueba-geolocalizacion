@@ -1,14 +1,20 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="primary">
     <ion-title>
-      Blank
+      Geolocation
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-button color="danger" shape="round" (click)="enviarAlarma()">Panik</ion-button>
-
-  latitud: {{ lat }}<br>
-  longitud: {{ long }}
+<ion-content>
+  <ion-row>
+    <ion-col>Latitude: {{lat}}</ion-col>
+    <ion-col>Longitude: {{lng}}</ion-col>
+  </ion-row>
 </ion-content>
+<ion-footer>
+  <ion-button expand="full" color="danger" (click)="getMyLocation()">PANIK</ion-button>
+</ion-footer>
+
+
+

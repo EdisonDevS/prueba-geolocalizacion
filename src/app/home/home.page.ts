@@ -42,7 +42,7 @@ export class HomePage {
 
     this.backgroundMode.on("activate").subscribe(()=>{
       setInterval(()=>{
-        this.sonidoIrritante();
+        this.audio.play('alerta');
       },
       10000)
     });
@@ -50,10 +50,6 @@ export class HomePage {
     this.backgroundMode.enable();
 
 
-  }
-
-  sonidoIrritante() {
-    this.audio.play('alerta');
   }
 
   async getMyLocation() {

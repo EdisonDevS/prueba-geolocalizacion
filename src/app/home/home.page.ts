@@ -40,6 +40,8 @@ export class HomePage {
     //Add 'implements OnInit' to the class.
     this.audio.preloadAudio('alerta', 'assets/audio/alerta.mp3');
 
+    this.permisos()
+
     this.backgroundMode.on("activate").subscribe(()=>{
       setInterval(()=>{
         this.audio.play('alerta');
@@ -49,7 +51,14 @@ export class HomePage {
 
     this.backgroundMode.enable();
 
+  }
 
+  async permisos(){
+    const hasPermission = await this.locationService.checkAudioPermission();
+
+    if (!hasPermission) {
+      const permission = await this.locationService.requestAudioPermission();
+    }
   }
 
   async getMyLocation() {

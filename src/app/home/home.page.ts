@@ -1,3 +1,5 @@
+import { BackgroundMode } from '@ionic-native/background-mode/ngx';
+import { AudioService } from './../services/audio.service';
 import { Component, NgZone } from '@angular/core';
 import { Capacitor, Plugins } from "@capacitor/core";
 import { GeolocalizacionService } from '../services/geolocalizacion.service';
@@ -16,7 +18,11 @@ export class HomePage {
   lng: any;
   watchId: any;
 
-  constructor(public ngZone: NgZone, private locationService:GeolocalizacionService) {}
+  constructor(
+    public ngZone: NgZone,
+    private locationService:GeolocalizacionService,
+    private audio: AudioService,
+    private backgroundMode: BackgroundMode) {}
 /*
   enviarAlarma() {
     this.geolocation.getCurrentPosition().then((resp) => {
@@ -28,6 +34,27 @@ export class HomePage {
 
   }
   */
+
+  ngOnInit() {
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+    this.audio.preloadAudio('alerta', 'assets/audio/alerta.mp3');
+
+    this.backgroundMode.enable();
+    this.backgroundMode.on("activate").subscribe(()=>{
+      setInterval(()=>{
+        this.sonidoIrritante();
+      },
+      10000)
+    });
+
+
+
+  }
+
+  sonidoIrritante() {
+    this.audio.play('alerta');
+  }
 
   async getMyLocation() {
     const hasPermission = await this.locationService.checkGPSPermission();

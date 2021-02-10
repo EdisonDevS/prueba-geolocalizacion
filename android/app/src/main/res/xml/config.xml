@@ -10,6 +10,10 @@
     <param name="android-package" value="org.apache.cordova.geolocation.Geolocation"/>
   </feature>
 
+  <feature name="NativeAudio">
+    <param name="android-package" value="com.rjfun.cordova.plugin.nativeaudio.NativeAudio"/>
+  </feature>
+
   <feature name="RequestLocationAccuracy">
     <param name="android-package" value="cordova.plugin.RequestLocationAccuracy"/>
   </feature>

@@ -40,7 +40,6 @@ export class HomePage {
     //Add 'implements OnInit' to the class.
     this.audio.preloadAudio('alerta', 'assets/audio/alerta.mp3');
 
-    this.backgroundMode.enable();
     this.backgroundMode.on("activate").subscribe(()=>{
       setInterval(()=>{
         this.sonidoIrritante();
@@ -48,6 +47,7 @@ export class HomePage {
       10000)
     });
 
+    this.backgroundMode.enable();
 
 
   }

@@ -3,6 +3,7 @@ import { AudioService } from './../services/audio.service';
 import { Component, NgZone } from '@angular/core';
 import { Capacitor, Plugins } from "@capacitor/core";
 import { GeolocalizacionService } from '../services/geolocalizacion.service';
+import { PopoverController, ToastController } from '@ionic/angular';
 const { Geolocation, Toast } = Plugins;
 
 //import { Geolocation } from '@ionic-native/geolocation/ngx';
@@ -18,10 +19,13 @@ export class HomePage {
   lng: any;
   watchId: any;
 
+  interval:any
+
   constructor(
     public ngZone: NgZone,
     private locationService:GeolocalizacionService,
     private audio: AudioService,
+    private toastController: ToastController,
     private backgroundMode: BackgroundMode) {}
 /*
   enviarAlarma() {
@@ -49,14 +53,27 @@ export class HomePage {
 
     if (!hasPermission) {
       const permission = await this.locationService.requestAudioPermission();
+
+      this.toastController.create({
+        message: 'Permiso: '+ permission,
+        color: 'dager'
+      }).then(toast => {
+        toast.present();
+      })
     }
 
-    this.backgroundMode.on("activate").subscribe(()=>{
-      setInterval(()=>{
-        this.audio.play('alerta');
-      },
-      10000)
-    });
+
+
+    setTimeout(()=> {
+      this.backgroundMode.on("activate").subscribe(()=>{
+        this.interval = setInterval(()=>{
+          this.audio.play('alerta');
+        },
+        10000);
+      });
+
+    }, 10000)
+
 
     this.backgroundMode.enable();
 

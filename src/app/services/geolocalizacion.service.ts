@@ -70,55 +70,43 @@ export class GeolocalizacionService {
 
 async requestAudioPermission(): Promise<string> {
   return await new Promise((resolve, reject) => {
-      LocationAccuracy.canRequest().then((canRequest: boolean) => {
-          if (canRequest) {
-              resolve('CAN_REQUEST');
-          } else {
-              // Show 'GPS Permission Request' dialogue
-              AndroidPermissions.requestPermission(AndroidPermissions.PERMISSION.FOREGROUND_SERVICE)
-                  .then(
-                      (result) => {
-                          if (result.hasPermission) {
-                              // call method to turn on GPS
-                              resolve('GOT_PERMISSION');
-                          } else {
-                              resolve('DENIED_PERMISSION');
-                          }
-                      },
-                      error => {
-                          // Show alert if user click on 'No Thanks'
-                          alert('requestPermission Error requesting location permissions ' + error);
-                      }
-                  );
-          }
-      });
+    AndroidPermissions.requestPermission(AndroidPermissions.PERMISSION.FOREGROUND_SERVICE)
+        .then(
+            (result) => {
+                if (result.hasPermission) {
+                    // call method to turn on GPS
+                    resolve('GOT_PERMISSION');
+                } else {
+                    resolve('DENIED_PERMISSION');
+                }
+            },
+            error => {
+                // Show alert if user click on 'No Thanks'
+                alert('requestPermission Error requesting location permissions ' + error);
+            }
+        );
+
   })
 }
 
   async requestGPSPermission(): Promise<string> {
       return await new Promise((resolve, reject) => {
-          LocationAccuracy.canRequest().then((canRequest: boolean) => {
-              if (canRequest) {
-                  resolve('CAN_REQUEST');
-              } else {
-                  // Show 'GPS Permission Request' dialogue
-                  AndroidPermissions.requestPermission(AndroidPermissions.PERMISSION.ACCESS_FINE_LOCATION)
-                      .then(
-                          (result) => {
-                              if (result.hasPermission) {
-                                  // call method to turn on GPS
-                                  resolve('GOT_PERMISSION');
-                              } else {
-                                  resolve('DENIED_PERMISSION');
-                              }
-                          },
-                          error => {
-                              // Show alert if user click on 'No Thanks'
-                              alert('requestPermission Error requesting location permissions ' + error);
-                          }
-                      );
-              }
-          });
+        AndroidPermissions.requestPermission(AndroidPermissions.PERMISSION.ACCESS_FINE_LOCATION)
+            .then(
+                (result) => {
+                    if (result.hasPermission) {
+                        // call method to turn on GPS
+                        resolve('GOT_PERMISSION');
+                    } else {
+                        resolve('DENIED_PERMISSION');
+                    }
+                },
+                error => {
+                    // Show alert if user click on 'No Thanks'
+                    alert('requestPermission Error requesting location permissions ' + error);
+                }
+            );
+
       })
   }
 }
